@@ -1,2 +1,1 @@
-# ThemedECommerceProjectRepo
-Ecommerce Group Project
+# eCommerceStarterCode
