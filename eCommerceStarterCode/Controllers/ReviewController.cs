@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerceStarterCode.Controllers
 {
-    [Route("api/reviews")]
+    [Route("api/review")]
     [ApiController]
-    public class Reviews : ControllerBase
+    public class ReviewController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public Reviews(ApplicationDbContext context)
+        public ReviewController(ApplicationDbContext context)
         {
             _context = context;
         }
