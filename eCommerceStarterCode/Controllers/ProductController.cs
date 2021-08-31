@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerceStarterCode.Controllers
 {
@@ -17,7 +17,7 @@ namespace eCommerceStarterCode.Controllers
 
     public class ProductController : ControllerBase
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public ProductController(ApplicationDbContext context)
         {
@@ -26,7 +26,7 @@ namespace eCommerceStarterCode.Controllers
 
         // GET api/product
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAllProducts()
         {
             // get all products
             var products = _context.Products;
