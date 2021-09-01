@@ -29,7 +29,7 @@ namespace eCommerceStarterCode.Controllers
             return Ok(specificCart);
         }
 
-        [HttpPost]
+        [HttpPost("add"), Authorize]
         public IActionResult Post([FromBody] ShoppingCart value)
         {
             _context.ShoppingCart.Add(value);
