@@ -21,15 +21,15 @@ namespace eCommerceStarterCode.Controllers
         }
 
 
-        [HttpGet(), Authorize]
-        public IActionResult Get()
+        [HttpGet("{UserId}")]
+        public IActionResult Get(string UserId)
         {
             var shoppingCart = _context.ShoppingCart;
-            var specificCart = shoppingCart.Where(sc => sc.Id == User.FindFirstValue("id"));
+            var specificCart = shoppingCart.Where(sc => sc.Id == UserId); 
             return Ok(specificCart);
         }
 
-        [HttpPost("add"), Authorize]
+        [HttpPost("add")]
         public IActionResult Post([FromBody] ShoppingCart value)
         {
             _context.ShoppingCart.Add(value);
