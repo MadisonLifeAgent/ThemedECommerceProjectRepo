@@ -50,6 +50,7 @@ namespace eCommerceStarterCode.Data
             modelBuilder.Entity<ShoppingCart>()
                 .HasKey(s => new { s.Id, s.ProductId });
 
+            modelBuilder.ApplyConfiguration(new RolesConfiguration());
 
         }
     }
