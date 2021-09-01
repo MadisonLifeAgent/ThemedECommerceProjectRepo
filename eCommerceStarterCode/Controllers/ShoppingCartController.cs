@@ -25,7 +25,7 @@ namespace eCommerceStarterCode.Controllers
         public IActionResult Get()
         {
             var shoppingCart = _context.ShoppingCart;
-            var specificCart = shoppingCart.Where(sc => sc.UserId == User.FindFirstValue("id"));
+            var specificCart = shoppingCart.Where(sc => sc.Id == User.FindFirstValue("id"));
             return Ok(specificCart);
         }
 
@@ -40,7 +40,7 @@ namespace eCommerceStarterCode.Controllers
         [HttpDelete("{ProudctId}/{UserId}")]
         public IActionResult Remove(int ProudctId, string UserId)
         {
-            var deleteProduct = _context.ShoppingCart.Where(dp => dp.UserId == UserId && dp.ProductId == ProudctId).SingleOrDefault();
+            var deleteProduct = _context.ShoppingCart.Where(dp => dp.Id == UserId && dp.ProductId == ProudctId).SingleOrDefault();
             if (deleteProduct == null)
             {
                 return NotFound();
