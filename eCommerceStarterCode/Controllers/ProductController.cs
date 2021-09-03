@@ -47,7 +47,7 @@ namespace eCommerceStarterCode.Controllers
         public IActionResult GetSearchResults(string searchTerm)
         {
             // get all products with search term in name
-            var products = _context.Products.ToList().Where(p => p.ProductName.Contains(searchTerm));
+            var products = _context.Products.ToList().Where(p => p.ProductName.ToLower().Contains(searchTerm.ToLower()));
             return Ok(products);
         }
     }
