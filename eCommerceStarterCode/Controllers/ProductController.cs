@@ -41,5 +41,14 @@ namespace eCommerceStarterCode.Controllers
             _context.SaveChanges();
             return StatusCode(201, value);
         }
+
+        // GET api/product/name
+        [HttpGet("searchresults/{searchTerm}")]
+        public IActionResult GetSearchResults(string searchTerm)
+        {
+            // get all products
+            var products = _context.Products.ToList().Where(p => p.ProductName.Contains(searchTerm)).Select(p => p.ProductName);
+            return Ok(products);
+        }
     }
 }
