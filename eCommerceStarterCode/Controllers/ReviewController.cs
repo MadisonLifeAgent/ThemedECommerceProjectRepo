@@ -18,6 +18,7 @@ namespace eCommerceStarterCode.Controllers
             _context = context;
         }
 
+        // get all reviews
         [HttpGet]
         public IActionResult Get()
         {
@@ -25,12 +26,21 @@ namespace eCommerceStarterCode.Controllers
             return Ok(reviews);
         }
 
+        // add review
         [HttpPost("add")]
         public IActionResult Post([FromBody] Review value)
         {
             _context.Reviews.Add(value);
             _context.SaveChanges();
             return StatusCode(201, value);
+        }
+
+        [HttpGet("{productId}")]
+        public IActionResult GetReviewByProductId(int productId)
+        {
+            var reviews = _context.Reviews.ToList().Where(r => r.ProductId == productId);
+
+            return Ok(reviews);
         }
     }
 }
