@@ -50,5 +50,14 @@ namespace eCommerceStarterCode.Controllers
             var products = _context.Products.ToList().Where(p => p.ProductName.ToLower().Contains(searchTerm.ToLower()));
             return Ok(products);
         }
+
+        // GET api/searchresults/searchterm
+        [HttpGet("{productId}")]
+        public IActionResult GetProductDetails(int productId)
+        {
+            // get all products with search term in name
+            var product = _context.Products.Where(p => p.ProductId == productId);
+            return Ok(product);
+        }
     }
 }
