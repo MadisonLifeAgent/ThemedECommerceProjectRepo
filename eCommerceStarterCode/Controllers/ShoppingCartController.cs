@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerceStarterCode.Controllers
 {
@@ -25,7 +26,7 @@ namespace eCommerceStarterCode.Controllers
         public IActionResult Get(string UserId)
         {
             var shoppingCart = _context.ShoppingCart;
-            var specificCart = shoppingCart.ToList().Where(sc => sc.Id == UserId);
+            var specificCart = shoppingCart.Include(sc => sc.Product).ToList().Where(sc => sc.Id == UserId);
             return Ok(specificCart);
         }
 

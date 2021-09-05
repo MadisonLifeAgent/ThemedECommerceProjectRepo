@@ -44,6 +44,22 @@ namespace eCommerceStarterCode.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1d15dc24-98ca-4af1-9a5c-df7d6b2e4b4e",
+                            ConcurrencyStamp = "204de20f-8736-4a90-add8-408d82b6e619",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "0cb34f28-fdab-43ba-bbeb-9d35bab0b434",
+                            ConcurrencyStamp = "b1b23248-2405-41a0-98dd-a7c4bf5d6d68",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -168,27 +184,7 @@ namespace eCommerceStarterCode.Migrations
                         new
                         {
                             CategoryId = 1,
-                            CategoryName = "Console"
-                        },
-                        new
-                        {
-                            CategoryId = 2,
-                            CategoryName = "RPG"
-                        },
-                        new
-                        {
-                            CategoryId = 3,
-                            CategoryName = "FPS"
-                        },
-                        new
-                        {
-                            CategoryId = 4,
-                            CategoryName = "Simulation"
-                        },
-                        new
-                        {
-                            CategoryId = 5,
-                            CategoryName = "Sports"
+                            CategoryName = "Video Game"
                         });
                 });
 
@@ -221,122 +217,9 @@ namespace eCommerceStarterCode.Migrations
                         new
                         {
                             ProductId = 1,
-                            CategoryId = 1,
                             ProductDescription = "Game anywhere you go!",
                             ProductName = "Nintendo Switch",
                             ProductPrice = 299.0
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            CategoryId = 1,
-                            ProductDescription = "No ray tracing.",
-                            ProductName = "Playstation 4",
-                            ProductPrice = 199.0
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            CategoryId = 1,
-                            ProductDescription = "Kinda 4k",
-                            ProductName = "Xbox Series S",
-                            ProductPrice = 299.0
-                        },
-                        new
-                        {
-                            ProductId = 4,
-                            CategoryId = 2,
-                            ProductDescription = "FOR THE EMPIRE, or LOOT!",
-                            ProductName = "Skyrim",
-                            ProductPrice = 299.0
-                        },
-                        new
-                        {
-                            ProductId = 5,
-                            CategoryId = 2,
-                            ProductDescription = "zzzzzzzzzzz",
-                            ProductName = "Final Fantasy 1000",
-                            ProductPrice = 59.990000000000002
-                        },
-                        new
-                        {
-                            ProductId = 6,
-                            CategoryId = 2,
-                            ProductDescription = "Broken and bad acting",
-                            ProductName = "Fallout",
-                            ProductPrice = 19.989999999999998
-                        },
-                        new
-                        {
-                            ProductId = 7,
-                            CategoryId = 3,
-                            ProductDescription = "Is that Robert Redford?",
-                            ProductName = "Call of Duty: Black Ops Cold War",
-                            ProductPrice = 49.0
-                        },
-                        new
-                        {
-                            ProductId = 8,
-                            CategoryId = 3,
-                            ProductDescription = "Running Riot!",
-                            ProductName = "Halo",
-                            ProductPrice = 19.0
-                        },
-                        new
-                        {
-                            ProductId = 9,
-                            CategoryId = 3,
-                            ProductDescription = "So much blood",
-                            ProductName = "Doom",
-                            ProductPrice = 29.0
-                        },
-                        new
-                        {
-                            ProductId = 10,
-                            CategoryId = 4,
-                            ProductDescription = "Let's grow plants and go fishing.",
-                            ProductName = "Harvest Moon",
-                            ProductPrice = 19.0
-                        },
-                        new
-                        {
-                            ProductId = 11,
-                            CategoryId = 4,
-                            ProductDescription = "Become Ruler of the World ",
-                            ProductName = "Civilization V",
-                            ProductPrice = 29.0
-                        },
-                        new
-                        {
-                            ProductId = 12,
-                            CategoryId = 4,
-                            ProductDescription = "The sim life",
-                            ProductName = "The Sims",
-                            ProductPrice = 39.0
-                        },
-                        new
-                        {
-                            ProductId = 13,
-                            CategoryId = 5,
-                            ProductDescription = "What's with all the sliding?",
-                            ProductName = "NBA 2K20",
-                            ProductPrice = 19.0
-                        },
-                        new
-                        {
-                            ProductId = 14,
-                            CategoryId = 5,
-                            ProductDescription = "BOOM! It's just a roster update.",
-                            ProductName = "Madden 2022",
-                            ProductPrice = 59.0
-                        },
-                        new
-                        {
-                            ProductId = 15,
-                            CategoryId = 5,
-                            ProductDescription = "Punterino",
-                            ProductName = "F1 2021",
-                            ProductPrice = 59.0
                         });
                 });
 
@@ -383,6 +266,8 @@ namespace eCommerceStarterCode.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id", "ProductId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ShoppingCart");
                 });
@@ -531,6 +416,17 @@ namespace eCommerceStarterCode.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("eCommerceStarterCode.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("eCommerceStarterCode.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }

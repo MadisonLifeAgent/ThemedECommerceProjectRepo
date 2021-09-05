@@ -55,7 +55,7 @@ namespace eCommerceStarterCode.Controllers
         [HttpGet("{productId}")]
         public IActionResult GetProductDetails(int productId)
         {
-            // get all products with search term in name
+            // get product details using product it
             var product = _context.Products.Where(p => p.ProductId == productId);
             return Ok(product);
         }

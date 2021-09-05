@@ -10,8 +10,8 @@ using eCommerceStarterCode.Data;
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210831151216_tables")]
-    partial class tables
+    [Migration("20210905062355_reinitiatedbecommerce")]
+    partial class reinitiatedbecommerce
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,22 @@ namespace eCommerceStarterCode.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1d15dc24-98ca-4af1-9a5c-df7d6b2e4b4e",
+                            ConcurrencyStamp = "204de20f-8736-4a90-add8-408d82b6e619",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "0cb34f28-fdab-43ba-bbeb-9d35bab0b434",
+                            ConcurrencyStamp = "b1b23248-2405-41a0-98dd-a7c4bf5d6d68",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -253,6 +269,8 @@ namespace eCommerceStarterCode.Migrations
 
                     b.HasKey("Id", "ProductId");
 
+                    b.HasIndex("ProductId");
+
                     b.ToTable("ShoppingCart");
                 });
 
@@ -400,6 +418,17 @@ namespace eCommerceStarterCode.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("eCommerceStarterCode.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("eCommerceStarterCode.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }
