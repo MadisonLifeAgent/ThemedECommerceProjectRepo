@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using eCommerceStarterCode.Data;
 using eCommerceStarterCode.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerceStarterCode.Controllers
 {
@@ -38,7 +39,7 @@ namespace eCommerceStarterCode.Controllers
         [HttpGet("{productId}")]
         public IActionResult GetReviewByProductId(int productId)
         {
-            var reviews = _context.Reviews.ToList().Where(r => r.ProductId == productId);
+            var reviews = _context.Reviews.Include(r => r.Product).Include(r => r.User).ToList().Where(r => r.ProductId == productId);
 
             return Ok(reviews);
         }

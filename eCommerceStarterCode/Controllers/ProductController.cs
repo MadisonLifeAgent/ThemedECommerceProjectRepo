@@ -56,7 +56,8 @@ namespace eCommerceStarterCode.Controllers
         public IActionResult GetProductDetails(int productId)
         {
             // get product details using product it
-            var product = _context.Products.Where(p => p.ProductId == productId);
+            var product = _context.Products.Include(p => p.Category).Where(p => p.ProductId == productId);
+
             return Ok(product);
         }
     }
