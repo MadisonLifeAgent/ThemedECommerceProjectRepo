@@ -39,9 +39,23 @@ namespace eCommerceStarterCode.Controllers
         [HttpGet("{productId}")]
         public IActionResult GetReviewByProductId(int productId)
         {
-            var reviews = _context.Reviews.Include(r => r.Product).Include(r => r.User).ToList().Where(r => r.ProductId == productId);
+            var reviews = _context.Reviews.Include(r => r.User).ToList().Where(r => r.ProductId == productId);
 
             return Ok(reviews);
+        }
+
+
+        [HttpGet("averagerating{productId}")]
+        public IActionResult GetAverageRating(int productId)
+        {
+            var ratingsSum = _context.Reviews.Where(r => r.ProductId == productId).Select(a => (decimal)a.Rating).Sum();
+
+            var reviewsCount = _context.Reviews.Where(r => r.ProductId == productId).Count();
+
+            var ratingsAverage = (ratingsSum / reviewsCount);
+
+
+            return Ok(ratingsAverage);
         }
     }
 }
