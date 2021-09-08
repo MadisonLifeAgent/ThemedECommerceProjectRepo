@@ -52,8 +52,16 @@ namespace eCommerceStarterCode.Controllers
 
             var reviewsCount = _context.Reviews.Where(r => r.ProductId == productId).Count();
 
-            var ratingsAverage = (ratingsSum / reviewsCount);
+            var ratingsAverage = (decimal)0;
 
+            if (reviewsCount == 0)
+            {
+                ratingsAverage = 0;
+            }
+            else if (reviewsCount > 0)
+            {
+                ratingsAverage = ratingsSum / reviewsCount;
+            }
 
             return Ok(ratingsAverage);
         }
