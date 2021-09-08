@@ -60,5 +60,15 @@ namespace eCommerceStarterCode.Controllers
 
             return Ok(product);
         }
+
+        // GET api/searchresults/searchterm
+        [HttpGet("{productId}details")]
+        public IActionResult GetProductDetailsOnly(int productId)
+        {
+            // get product details using product it
+            var productOnly = _context.Products.Where(p => p.ProductId == productId);
+
+            return Ok(productOnly);
+        }
     }
 }
