@@ -42,5 +42,27 @@ namespace eCommerceStarterCode.Controllers
             return StatusCode(201, value);
         }
 
+        // GET api/searchresults/searchterm
+        [HttpGet("searchresults/{searchTerm}")]
+        public IActionResult GetSearchResults(string searchTerm)
+        {
+            // get all products with search term in name
+            var category = _context.Category.Where(p => p.CategoryName.ToLower().Contains(searchTerm.ToLower()));
+            var productsAndCategories = from cId in category
+                                        join pcId in _context.Products
+                                        on cId.CategoryId equals pcId.CategoryId
+                                        select new
+                                        {
+                                            ProductId = pcId.ProductId,
+                                            ProductName = pcId.ProductName,
+                                            ProductPrice = pcId.ProductPrice,
+                                            ProductDescription = pcId.ProductDescription,
+                                            CategoryId = cId.CategoryId,
+                                            CategoryName = cId.CategoryName
+                                        };
+
+            return Ok(productsAndCategories);
+        }
+
     }
 }
